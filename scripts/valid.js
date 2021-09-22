@@ -43,8 +43,8 @@ function onlyDigits() {
 				this.value = this.value.substr(0, 0);
 			}
 		
-		let x = parseFloat(ytextinput.value.replace(new RegExp(separator, "g"), "."));
-		let y = parseFloat(rtextinput.value.replace(new RegExp(separator, "g"), "."));
+		let y = parseFloat(ytextinput.value.replace(new RegExp(separator, "g"), "."));
+		let r = parseFloat(rtextinput.value.replace(new RegExp(separator, "g"), "."));
 	}
 }
 
@@ -57,7 +57,6 @@ for (var i = 0; i < inputs.length; i++) inputs[i].onchange = checkboxHandler;
 function checkboxHandler() {
     for (var i = 0; i < inputs.length; i++)
         if (inputs[i].checked && inputs[i] !== this) inputs[i].checked = false;
-	changeR(parseFloat(this.value));
 }
 
 document.querySelector("#forsubmit").onclick = startPHP;
