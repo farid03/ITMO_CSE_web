@@ -1,0 +1,152 @@
+body {
+	font-size: 14px;
+	margin: 0 0 0 0;
+	background-color: #bfbfbf;
+	color: #000000;
+}
+
+label input {
+	display: none;
+}
+
+label span {
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  padding: 0 0 0 0;
+  line-height: 40px;
+  color: #000000;
+  border: solid 1px #000000;
+  display: inline-block;
+  position: relative;
+  background-color: #3399ff;
+  border-radius:50px;
+  padding:3px;
+}
+
+.input-checkbox + span {
+	width: 2.5em;
+	height: 2.5em;
+}
+
+[type=checkbox]:checked + span {/* <-- ставим иконку, когда чекбокс включен */
+	transform: scale(1.3);
+	background-color: #000000;
+	color: #3399ff;
+	border: solid 1px #7f7f7f;
+}
+
+#legend-text {
+	font-size: 15px;
+}
+
+#history-label, .historyElem, #history-td, #historyRow, .historyTd, #historyBrowser {
+	text-align: center;
+	border-radius: 5px;
+	padding: 0 0 0 0;
+	background-color: #7f7f7f;
+	color: #000000;
+	border: solid 1px #000000;
+	
+}
+
+
+
+#historyRow, .historyElem, #historyBrowser {
+	border: none;
+}
+
+.historyElem {
+	background-color: rgba(0,0,0,0);
+	background-color: #7f7f7f;
+	color: #000000;
+	border: solid 1px #000000;
+}
+
+#historyRow {
+	background-color: #EEEEEE;
+}
+
+#historyRow:nth-child(even) {
+	background-color: #DDDDDD;
+}
+
+.bold-label {
+	font-weight: bold;
+}
+
+canvas {
+	background-color: black;
+}
+
+fieldset > .button-form {
+	width: 100%;
+}
+#answer {
+	border: 1px solid #000000;
+	background-color: #7f7f7f;
+	border-radius: 2px;
+	width: 100%;
+	height: 100px;
+	padding: 0 0 0 0;
+}
+
+#textwindow {
+	text-align: center;
+}
+
+
+input[type="text"] {
+	border-radius: 2px;
+	background-color: #dfdfdf;
+	color: #000000;
+	border: solid 1px #000000;
+	width: 100%;
+	padding-left: 10px;
+	outline: none;
+}
+
+
+button, input[type="button"], input[type="reset"] {
+	border: none;
+	border-radius: 5px;
+	background-color: #7f7f7f;
+	color: #000000;
+	border: solid 1px #000000;
+	padding: 5px 5px;
+	margin: 5px 0 0 0;
+}
+
+
+
+table {
+	width: 100%;
+}
+
+#main-grid {
+	font-family: monospace;
+	font-size: 20px;
+}
+
+td {
+	padding: 10px 10px 10px 10px;
+}
+
+#header-text {
+	font-family: monospace;
+}
+
+label {
+	font-size: 16px;
+}
+
+.number1, .number2 {
+
+	width: 90%;
+}
+
+
+fieldset {
+	border-radius: 20px;
+	border: solid 1px #000000;
+}
