@@ -47,9 +47,9 @@ function checkHit($x, $y, $r) {
 }
 
 $start = microtime(true);
-$r = (int)$_GET["r"];
-$x = (float)$_GET["x"];
-$y = (float)$_GET["y"];
+$r = $_GET["r"];
+$x = $_GET["x"];
+$y = $_GET["y"];
 $isValid = validate($x, $y, $r) ? 'Ок' : 'Fake zone'; 
 $hit = $isValid ? checkHit($x, $y, $r) : false;
 $hit = $hit ? 'Попадание' : 'Промах';
