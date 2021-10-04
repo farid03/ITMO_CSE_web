@@ -7,6 +7,7 @@ function onlyDigits() {
 	var minValue = parseFloat(this.dataset.min);
 	var maxValue = parseFloat(this.dataset.max);
 	var val = parseFloat(separator == "." ? this.value : this.value.replace(new RegExp(separator, "g"), "."));
+	
 	if (minValue <= maxValue) {
 		if (this.value[0] == "-") {
 			if (this.value.length > 8) {
@@ -53,7 +54,7 @@ document.querySelector(".number2").oninput = onlyDigits;
 
 var inputs = document.getElementsByClassName("input-checkbox");
 for (var i = 0; i < inputs.length; i++) inputs[i].onchange = checkboxHandler;
-         
+
 function checkboxHandler() {
     for (var i = 0; i < inputs.length; i++)
         if (inputs[i].checked && inputs[i] !== this) inputs[i].checked = false;
@@ -69,10 +70,18 @@ function clearHistory() {
 
 function onAnswer(res) {
 	$('.button-form').attr('disabled', false);
-	var timer = JSON.stringify(res);
+	let indexOfSubstr = res.indexOf("\"script\"") 
+	if (indexOfSubstr != -1) {
+		res = res.substr(0, indexOfSubstr - 1);
+		res = res + "}";
+	} else if (res == "Некорректно введены данные!") {
+		textwindow.innerHTML = res;
+		return;
+	}
+	var timer = res;
 	var data = JSON.parse(timer);
-	var result = "<b>Проверка точки (" + data.x + "; " + data.y + ")</b><br>";
-	result += "<b>Параметр: </b>" + data.r + "<br>";
+	var result = "<b>Проверка точки (" + +data.x + "; " + +data.y + ")</b><br>";
+	result += "<b>Параметр: </b>" + +data.r + "<br>";
 	result += "<b>Время отправки: </b>" + data.currentTime + "<br>";
 	result += "<b>Время исполнения: </b>" + (parseFloat(data.scriptTime)*1000).toFixed(2) + " ms<br>";
 	result += "<b>Результат: </b>" + data.hit;
@@ -85,8 +94,8 @@ function createTableRow(data) {
 	data = JSON.parse(data);
 	let result;
 	result = "<tr class='historyTd'>";
-	result += `<td class='historyElem'> Точка: (${data.x}, ${data.y}) </td>`;
-	result += `<td class='historyElem'> Параметр: ${data.r} </td>`;
+	result += `<td class='historyElem'> Точка: (${parseFloat(data.x)}, ${parseFloat(data.y)}) </td>`;
+	result += `<td class='historyElem'> Параметр: ${parseFloat(data.r)} </td>`;
 	result += `<td class='historyElem'> Отправка: ${data.currentTime} </td>`;
 	result += `<td class='historyElem'> Исполнение: ${(parseFloat(data.scriptTime)*1000).toFixed(2)} ms</td>`;
 	result += `<td class='historyElem'> Результат: ${data.hit} </td>`;
@@ -123,15 +132,16 @@ function startPHP() {
 				"x": x,
 				"y": y,
 				"r": r,
-				"time": (new Date()).getTimezoneOffset()
+				"time": (new Date()).getTimezoneOffset() //возвращает смещение часового пояса относительно часового пояса UTC в минутах для текущей локали.
 			},
 			beforeSend: function() {
 				$('.button-form').attr('disabled', 'disabled');
 			},
 			success: onAnswer,
-			dataType: "json"
+			dataType: "text"
 		});
-	} 
-	else 
-		alert('Заполните форму до конца!');
+	}
+	else {
+		textwindow.innerHTML = 'Заполните форму до конца!';
+	}
 }
