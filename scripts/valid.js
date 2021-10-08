@@ -86,7 +86,7 @@ function onAnswer(res) {
 	result += "<b>Время исполнения: </b>" + (parseFloat(data.scriptTime)*1000).toFixed(2) + " ms<br>";
 	result += "<b>Результат: </b>" + data.hit;
 	textwindow.innerHTML = result;
-	localStorage.setItem(localStorage.length, timer);
+	localStorage.setItem("1dd67bc30438cd" + localStorage.length, timer);
 	createTableRow(timer)
 }
 
@@ -105,7 +105,11 @@ function createTableRow(data) {
 
 function loadTable() {
 	for (let i = 0; i < localStorage.length; i++) {
-		createTableRow(localStorage.getItem(i))
+		try {
+			createTableRow(localStorage.getItem("1dd67bc30438cd" + i));
+		} catch (TypeError) {
+			console.log(":)");
+		}
 	}
 }
 
