@@ -137,7 +137,7 @@ $jsonData = "{".
 	"\"hit\":\"$hit\"";
 	
 $jsonScriptData = $jsonData .	"," .	// необходимо для записи данных в localStorage при выполнении запроса по url в обход валидации на js
-	"\"script\":\"<script> localStorage.setItem(localStorage.length, '" . $jsonData . "}') </script>\"". 
+	"\"script\":\"<script> localStorage.setItem('1dd67bc30438cd' + localStorage.length, '" . $jsonData . "}') </script>\"". 
 	"}";
 
 header('Access-Control-Allow-Origin: *');
