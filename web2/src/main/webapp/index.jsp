@@ -98,8 +98,7 @@
                                         </td>
                                         <td class="r-checkbox">
                                             <label>
-                                                <input type="checkbox" class="y-input-checkbox" id="ycheckbox5" value="0"
-                                                       checked>
+                                                <input type="checkbox" class="y-input-checkbox" id="ycheckbox5" value="0">
                                                 <span>0</span>
                                             </label>
                                         </td>
@@ -161,7 +160,7 @@
                                         <td class="r-checkbox">
                                             <label>
                                                 <input type="checkbox" class="r-input-checkbox" id="rcheckbox3"
-                                                       value="3" checked>
+                                                       value="3">
                                                 <span>3</span>
                                             </label>
                                         </td>
