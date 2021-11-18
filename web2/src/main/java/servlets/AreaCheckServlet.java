@@ -40,7 +40,9 @@ public class AreaCheckServlet extends HttpServlet {
                 if (checkHit(x, y, r)) {
                     Point point = new Point(x, y, r, String.valueOf(new SimpleDateFormat(dataFormat)
                             .format(Calendar.getInstance().getTime())), String.valueOf(System.nanoTime() - startTime), "Попадание");
-                    res.getPoints().add(point);
+                    synchronized (res.getPoints()) {
+                        res.getPoints().add(point);
+                    }
                     if (request.getParameter("resource").equals("form")) {
                         getServletContext().getRequestDispatcher("/resultsTable.jsp").forward(request, response);
                     } else {
@@ -50,8 +52,9 @@ public class AreaCheckServlet extends HttpServlet {
                 } else {
                     Point point = new Point(x, y, r, String.valueOf(new SimpleDateFormat(dataFormat)
                             .format(Calendar.getInstance().getTime())), String.valueOf(System.nanoTime() - startTime), "Промах");
-                    res.getPoints().add(point);
-
+                    synchronized (res.getPoints()) {
+                        res.getPoints().add(point);
+                    }
                     if (request.getParameter("resource").equals("form")) {
                         getServletContext().getRequestDispatcher("/resultsTable.jsp").forward(request, response);
                     } else {
