@@ -14,7 +14,9 @@ public class ClearServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         try {
-            this.getServletContext().setAttribute("Collection", new Results());
+            synchronized (getServletContext().getAttribute("Collection")) {
+                this.getServletContext().setAttribute("Collection", new Results());
+            }
             out.print("Successfully-cleared");
         } finally {
             out.close();
