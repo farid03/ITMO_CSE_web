@@ -71,7 +71,7 @@
                                         <td class="r-checkbox">
                                             <label>
                                                 <input type="checkbox" class="y-input-checkbox" id="ycheckbox1"
-                                                       value="-">
+                                                       value="-2">
                                                 <span>-2</span>
                                             </label>
                                         </td>
