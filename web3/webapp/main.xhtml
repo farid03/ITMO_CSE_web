@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+>
+
+<h:head>
+    <h:outputStylesheet library="styles" name="style.css"/>
+    <h:outputScript library="scripts" name="graph.js" target="body"/>
+    <h:outputScript library="scripts" name="valid.js" target="body"/>
+    <title>Web3</title>
+</h:head>
+
+<h:body>
+    <div id="header-text">
+        Курбанов Фарид Афизович <br/>
+        Группа: P3212 <br/>
+        Вариант: 12037
+    </div>
+    <div style="text-align: center">
+        <p:linkButton id="move-to-index" value="Стартовая страница" href="index.xhtml"/>
+    </div>
+    <table class="main-grid">
+        <tr>
+            <td id="content-graph" width="40%">
+                <div style="text-align: center;">
+                    <ui:include src="templates/graph.html"/>
+                </div>
+            </td>
+            <td id="content-form">
+                <h:form id="input-form">
+                    <fieldset>
+                        <legend><span id="legend-text">Проверьте вашу точку</span></legend>
+                        <table id="input-form-table">
+                            <!-- X-input field -->
+                            <tr class="label-col">
+                                <td rowspan="2" class="input-grid-label">
+                                    <label class="bold-label">X: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="buttons">
+                                        <h:commandButton id="x-button1" class="x-button" value="-4"
+                                                         onclick="changeX(1, -4)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button2" class="x-button" value="-3"
+                                                         onclick="changeX(2, -3)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button3" class="x-button" value="-2"
+                                                         onclick="changeX(3, -2)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button4" class="x-button" value="-1"
+                                                         onclick="changeX(4, -1)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button5" class="x-button" value="0"
+                                                         onclick="changeX(5, 0)" type="button" disabled="true"/>
+                                        <h:commandButton id="x-button6" class="x-button" value="1"
+                                                         onclick="changeX(6, 1)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button7" class="x-button" value="2"
+                                                         onclick="changeX(7, 2)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button8" class="x-button" value="3"
+                                                         onclick="changeX(8, 3)" type="button" disabled="false"/>
+                                        <h:commandButton id="x-button9" class="x-button" value="4"
+                                                         onclick="changeX(9, 4)" type="button" disabled="false"/>
+                                    </div>
+                                </td>
+                                <h:panelGroup styleClass="input_form_hidden_x">
+                                    <h:inputHidden value="#{resultsBean.newPoint.x}">
+                                    </h:inputHidden>
+                                </h:panelGroup>
+                            </tr>
+
+                            <!-- Y-input field -->
+                            <tr class="label-col">
+                                <td rowspan="2" class="input-grid-label">
+                                    <label class="bold-label">Y[-3..5]: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- There are a few checkbox fields that contained in one row of a table -->
+                                    <table>
+                                        <tr>
+                                            <h:inputText id="y-text-input" value="0" onchange="changeY(value)"/>
+                                            <h:panelGroup styleClass="input_form_hidden_y">
+                                                <h:inputHidden value="#{resultsBean.newPoint.y}">
+                                                </h:inputHidden>
+                                            </h:panelGroup>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- R-input field -->
+                            <tr class="label-col">
+                                <td rowspan="2" class="input-grid-label">
+                                    <label class="bold-label"> <h:outputText id="output-R"
+                                                                             value="R = #{resultsBean.newPoint.r}"/>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <!-- There are a few checkbox fields that contained in one row of a table -->
+                                    <table>
+                                        <tr>
+                                            <h:inputHidden id="R" styleClass="R" value="#{resultsBean.newPoint.r}"/>
+                                            <p:slider for="R" step="0.25" display="output-R" onSlideStart="3"
+                                                      minValue="2" maxValue="5" displayTemplate="R = {value}"
+                                                      onSlideEnd="loadGraph(document.getElementById('input-form:R').getAttribute('value'))"/>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <h:commandButton name='form' id="forsubmit" class="button-form"
+                                         onclick="validateForm()"
+                                         action="#{resultsBean.addPoint()}"
+                                         value="Проверить" type="submit">
+                            <f:ajax execute="input-form" render="pointTable"/>
+                        </h:commandButton>
+
+                        <h:commandButton name='form' id="forsubmitCanvas" class="button-form"
+                                         action="#{resultsBean.addPoint()}"
+                                         type="submit" style="display: none;">
+                            <f:ajax execute="input-form" render="pointTable"/>
+                        </h:commandButton>
+
+                        <h:commandButton id="forreset" class="button-form" action="#{resultsBean.clear()}"
+                                         value="Сбросить" type="submit">
+                            <f:ajax execute="input-form" render="pointTable"/>
+                        </h:commandButton>
+                    </fieldset>
+                </h:form>
+            </td>
+
+        </tr>
+    </table>
+
+    <div id="result-table-container">
+        <h:panelGroup id="pointTable">
+            <c:if test="${resultsBean.lastPoint != null}">
+                <div id="textwindow">
+                    <c:if test='${(resultsBean.newPoint.hit == null)}'>
+                        <b>Проверка точки (#{resultsBean.lastPoint.x}; #{resultsBean.lastPoint.y})</b> <br/>
+                        <b>Параметр: </b>#{resultsBean.lastPoint.r}<br/>
+                        <b>Время отправки: </b>#{resultsBean.lastPoint.currentTime}<br/>
+                        <b>Результат: </b>#{resultsBean.lastPoint.hit}
+                    </c:if>
+                    <c:if test='${(resultsBean.newPoint.hit != null)}'>
+                        <br/>
+                        <h:panelGroup id="error"> #{resultsBean.newPoint.hit} </h:panelGroup>
+                    </c:if>
+                </div>
+                <h:dataTable id="points-table"
+                             columnClasses="res-table-column,res-table-column,res-table-column,res-table-column,res-table-column"
+                             headerClass="res-table-column"
+                             value="#{resultsBean.points}" var="point">
+                    <h:column>
+                        <f:facet name="header">X</f:facet>
+                        <h:outputText value="#{point.x}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Y</f:facet>
+                        <h:outputText value="#{point.y}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">R</f:facet>
+                        <h:outputText value="#{point.r}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Результат</f:facet>
+                        <h:outputText value="#{point.hit}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Время отправки</f:facet>
+                        <h:outputText value="#{point.currentTime}"/>
+                    </h:column>
+                </h:dataTable>
+
+                <h:outputScript>
+                    try {
+                        loadGraph(document.getElementById('input-form:R').getAttribute('value'))
+                    } catch (ReferenceError) {
+                        console.log("Если бы кто-то знал...")
+                    }
+                </h:outputScript>
+
+            </c:if>
+        </h:panelGroup>
+    </div>
+    <table class="main-grid">
+        <tr>
+            <td colspan="2">
+                <div id="footer-title" class="center-aligned" style="text-align: center;">Если возникли вопросы писать
+                    <a
+                            style="color: #3399ff"
+                            href="https://t.me/fk1203">сюда</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</h:body>
+</html>
+

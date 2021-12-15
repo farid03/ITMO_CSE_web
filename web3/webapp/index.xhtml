@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+
+<h:head>
+    <h:outputStylesheet library="styles" name="style.css"/>
+    <h:outputScript library="scripts" name="clock.js"/>
+    <title>Web3</title>
+</h:head>
+
+<h:body id="main-body">
+    <div id="header-text" class="left-aligned">
+        Курбанов Фарид Афизович <br/>
+        Группа: P3212 <br/>
+        Вариант: 12037
+    </div>
+    <div class="card" style="text-align: center;">
+        <h:form id="form">
+            <h1 id="time">
+                <h:outputText id="date" styleClass="date" value="#{clock.localDate.format(clock.dtf)}"/>
+                <p:poll interval="2" update="form"/>
+            </h1>
+            <div style="text-align: center;">
+                <ui:include src="templates/clock.html"/>
+                <h:outputScript type="text/javascript">clockPainting()</h:outputScript>
+            </div>
+        </h:form>
+    </div>
+
+    <div style="text-align: center">
+        <p:linkButton id="move-to-main" value="Главная страница" href="main.xhtml"/>
+    </div>
+
+    <div id="footer-title" class="center-aligned" style="text-align: center;">Если возникли вопросы писать <a
+            style="color: #3399ff"
+            href="https://t.me/fk1203">сюда</a>
+    </div>
+</h:body>
+</html>
