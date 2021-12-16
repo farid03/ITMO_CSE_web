@@ -26,7 +26,7 @@ public class ResultsBean implements Serializable {
     private Point newPoint = new Point();
     private Point lastPoint;
 
-    private final String PERSISTENCE_UNIT_NAME = "postgres";
+    private final String PERSISTENCE_UNIT_NAME = "orbis";
     @PersistenceContext(unitName = PERSISTENCE_UNIT_NAME)
     private EntityManager entityManager;
 
