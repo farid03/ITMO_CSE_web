@@ -11,8 +11,6 @@ import java.util.Collection;
 @Entity
 @Table(name = "users_table")
 public class User implements UserDetails {
-    // TODO при логине можно задать пустые поля, что приведет к ошибке UserDetailsService returned null, which is an interface contract violation
-    // если написать несуществующие данные то тоже будет ошибка An internal error occurred while trying to authenticate the user.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
