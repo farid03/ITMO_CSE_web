@@ -17,27 +17,12 @@ public class Point implements Serializable {
     private int id;
 
     private String creator_user;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @CollectionTable(name = "users_table", joinColumns = @JoinColumn(name = "username"))
-//    private User user;
-
-//    @Column(name = "x", nullable = false)
     private double x;
-//    @Column(name = "y", nullable = false)
     private double y;
-//    @Column(name = "r", nullable = false)
     private double r;
-//    @Column(name = "currentTime", nullable = false)
     private String time = String.valueOf(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy")
         .format(Calendar.getInstance().getTime()));
-//    @Column(name = "hit", nullable = false)
     private boolean hit;
-
-//    public Point() {
-//        this.r = "2.0";
-//    }
-
 
     public String toJSON() {
         return "{" +
