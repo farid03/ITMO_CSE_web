@@ -63,38 +63,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authProvider());
     }
 
-//    @Bean
-//
-//    @Override
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("u")
-//                .password("u")
-//                .roles("User")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-
-    //    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .usersByUsernameQuery("select username, password, active from users_table where username=?");
-//    }
-
-
-//    @Bean
-//    public DaoAuthenticationProvider authProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userService);
-////        authProvider.setPasswordEncoder(encoder());
-//        return authProvider;
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(authProvider());
-//    }
-
-
 }
