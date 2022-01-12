@@ -34,7 +34,6 @@ public class RegistrationController {
 
         if (userFromDB != null) {
             System.out.println("User exists!");
-            //TODO сообщить пользователю о том, что ник уже занят
             return "redirect:/registration?error=exists";
         }
 
