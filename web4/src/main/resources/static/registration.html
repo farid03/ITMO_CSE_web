@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Web4</title>
+    <link href="styles/registration.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <script defer src="scripts/registration.js"></script>
+</head>
+<body>
+<div id="header-text" class="left-aligned">
+    Курбанов Фарид Афизович <br/>
+    Группа: P3212 <br/>
+    Вариант: 12047
+</div>
+<form id="registration-form" action="/registration" method="post" class="center-aligned" v-on:submit="onSubmit">
+    <br> Добавление нового пользователя <br>
+    <table>
+        <tr><td><b>Username:</b></td><td><input type="text" name="username" v-model="username"/></td></tr>
+        <tr><td><b>Password:</b></td><td><input type="password" name="password" v-model="password"/></td></tr>
+        <tr>
+            <td colspan="2">
+                <input id="move-to-main" type="submit" value="Register"/>
+            </td>
+        </tr>
+    </table>
+    <a href="/login">Войти в систему</a>
+    <div>
+        <b style="font-family: monospace; color:#ba0000; -webkit-text-stroke-width: 0.75px; -webkit-text-stroke-color:black;">
+            {{ message }}
+        </b>
+    </div>
+</form>
+</body>
+</html>

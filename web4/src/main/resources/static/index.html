@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="styles/style.css" rel="stylesheet"/>
+    <script defer src="scripts/index.js" ></script>
+    <script defer src="scripts/clock.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+    <title>Sign In Web4</title>
+</head>
+
+<body id="main-body">
+<div id="header-text" class="left-aligned">
+    Курбанов Фарид Афизович <br/>
+    Группа: P3212 <br/>
+    Вариант: 12047
+</div>
+<h1 id="time" v-bind:title="message" class="center-aligned">
+    {{ time }}
+</h1>
+<div id="main-div" class="center-aligned">
+    <div id="card">
+        <form id="form">
+            <div class="center-aligned">
+                <canvas id="clock" height="450%" width="450%" style="background: transparent;"></canvas>
+            </div>
+        </form>
+    </div>
+
+    <div id="sing-in-div">
+        <form id="sign-in-form" action="/login" method="post" v-on:submit="onSubmit">
+            <b style="font-family: monospace; color:#ba0000; -webkit-text-stroke-width: 0.75px; -webkit-text-stroke-color:black;">
+                {{ message }}
+            </b>
+            <table id="sign-in-table">
+                <tr><td><b>Username:</b></td><td><input type="text" name="username" v-model="username"/></td></tr>
+                <tr><td><b>Password:</b></td><td><input type="password" name="password" v-model="password"/></td></tr>
+                <tr><td colspan="2"> <input id="move-to-main" type="submit" value="Sign In"/> </td></tr>
+            </table>
+        </form>
+        <a href="registration">Зарегестрироваться</a>
+    </div>
+</div>
+
+<div id="footer-title" class="center-aligned" style="text-align: center;">Если возникли вопросы писать <a
+        href="https://t.me/fk1203">сюда</a>
+</div>
+</body>
+</html>
