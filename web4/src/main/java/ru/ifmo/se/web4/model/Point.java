@@ -17,12 +17,14 @@ public class Point implements Serializable {
     private int id;
 
     private String creator_user;
+
     private double x;
     private double y;
     private double r;
     private String time = String.valueOf(new SimpleDateFormat("HH:mm:ss dd/MM/yyyy")
         .format(Calendar.getInstance().getTime()));
     private boolean hit;
+
 
     public String toJSON() {
         return "{" +

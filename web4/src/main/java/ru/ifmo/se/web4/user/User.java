@@ -21,6 +21,8 @@ public class User implements UserDetails {
 
 //    private boolean active;
 
+//    private String lastVisit;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -46,6 +48,6 @@ public class User implements UserDetails {
         return true;
     }
 
-//    private String lastVisit;
+
 
 }

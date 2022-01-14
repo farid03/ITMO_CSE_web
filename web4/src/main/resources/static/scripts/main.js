@@ -20,7 +20,7 @@ Vue.component('points-table', {
         '<table id="points-table" style="width: 90%; margin-left: 5%" v-if="points.length > 0">' +
         '<tr>\n' +
         '<td id="history-td" style="padding-top: 2px; padding-bottom: 2px">\n' +
-        '<b style="font-size: 18px;"> Таблица результатов </b>\n' +
+        'Таблица результатов \n' +
         '</td>\n' +
         '</tr>\n' +
         '<tr>\n' +

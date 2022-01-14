@@ -45,3 +45,29 @@ a {
 table {
     margin: auto;
 }
+
+@media screen and (max-device-width: 662px) {
+    #header-text {
+        font-size: 37px;
+    }
+    body, #move-to-main  {
+        font-size: 32px;
+    }
+    input[type=text], input[type=password] {
+        height: 35px;
+        font-size: 22px;
+    }
+}
+
+@media screen and (min-device-width: 663px) and (max-device-width: 1039px) {
+    #header-text {
+        font-size: 26px;
+    }
+    body, #move-to-main {
+        font-size: 20px;
+    }
+    input[type=text], input[type=password] {
+        height: 30px;
+        font-size: 20px;
+    }
+}

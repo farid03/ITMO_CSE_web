@@ -8,8 +8,6 @@ import ru.ifmo.se.web4.model.Point;
 import ru.ifmo.se.web4.model.Points;
 import ru.ifmo.se.web4.user.User;
 
-import java.util.ArrayList;
-
 @RestController
 @RequestMapping("point")
 public class PointsController {
@@ -20,7 +18,7 @@ public class PointsController {
     }
 
     @GetMapping
-    public ResponseEntity<?> points() {
+    public ResponseEntity<?> points(@AuthenticationPrincipal User user) {
         return new ResponseEntity<>(points.findAll(), HttpStatus.OK);
     }
 
@@ -34,8 +32,9 @@ public class PointsController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> clear() {
+    public ResponseEntity<?> clear(@AuthenticationPrincipal User user) {
         points.deleteAll();
         return new ResponseEntity<>("Коллекция успешно очищена!", HttpStatus.OK);
     }
+
 }

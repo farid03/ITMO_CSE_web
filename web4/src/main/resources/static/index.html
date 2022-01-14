@@ -30,18 +30,26 @@
     </div>
 
     <div id="sing-in-div">
-        <form id="sign-in-form" action="/login" method="post" v-on:submit="onSubmit">
+        <form id="sign-in-form" action="/login" method="post"  @submit="onSubmit">
             <b style="font-family: monospace; color:#ba0000; -webkit-text-stroke-width: 0.75px; -webkit-text-stroke-color:black;">
                 {{ message }}
             </b>
             <table id="sign-in-table">
                 <tr><td><b>Username:</b></td><td><input type="text" name="username" v-model="username"/></td></tr>
                 <tr><td><b>Password:</b></td><td><input type="password" name="password" v-model="password"/></td></tr>
-                <tr><td colspan="2"> <input id="move-to-main" type="submit" value="Sign In"/> </td></tr>
+                <tr><td colspan="2"> <input id="move-to-main" type="submit" value="Sign In" /> </td></tr>
             </table>
         </form>
         <a href="registration">Зарегестрироваться</a>
+        <div id="users-list">
+
+            <p v-if="users.length">
+                <b>Последние пользователи:</b>
+                <li v-for="user in users">{{ user }}</li>
+            </p>
+        </div>
     </div>
+
 </div>
 
 <div id="footer-title" class="center-aligned" style="text-align: center;">Если возникли вопросы писать <a
