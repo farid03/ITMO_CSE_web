@@ -1,50 +1,57 @@
-package ru.ifmo.se.web4.config;
+package ru.ifmo.se.web4.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import ru.ifmo.se.web4.user.User;
 import ru.ifmo.se.web4.user.UserService;
+import ru.ifmo.se.web4.user.Users;
 
-@Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+@RestController
+public class LoginController {
+    @Autowired
+    private Users users;
 
     @Autowired
     private UserService userService;
 
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
+    @PostMapping(path = "/login")
+    public ResponseEntity<?> login(@RequestBody User user) {
+        try {
+            System.out.println(user);
+            if (user.getUsername() == null || user.getUsername().equals("")) {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
+            if (user.getPassword() == null || user.getPassword().equals("")) {
+                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+            }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                    .antMatchers("/registration", "/login", "/styles/style.css", "/styles/registration.css", "/scripts/index.js", "/scripts/clock.js", "/scripts/registration.js", "/users", "/").permitAll()
-                    .anyRequest().authenticated()
-                .and()
-                    .csrf().disable();
-        http.httpBasic().disable();
-    }
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            User userFromDB = users.findByUsername(user.getUsername());
+            if (userFromDB == null) {
+                System.out.println("Пользователь не существует");
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
 
-    @Override
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(encoder());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (AuthenticationException ex) {
+            System.out.println(ex.toString());
+            System.out.println("Попытка авторизации несуществующего пользователя");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }
