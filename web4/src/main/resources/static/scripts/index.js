@@ -1,4 +1,5 @@
 let usersApi = Vue.resource('/users');
+let loginApi = Vue.resource('/login');
 
 var clock = new Vue({
     el: '#time',
@@ -18,26 +19,45 @@ updateTime();
 var signInForm = new Vue({
     el: '#sign-in-form',
     data: {
-        username: '',
-        password: '',
+        user: {username: '', password: ''},
         message: ''
     },
     methods: {
-        onSubmit: function (e) {
-            if (this.username.trim().length === 0 || this.password.trim().length === 0) {
+        onSubmit: function () {
+            if (this.user.username.trim().length === 0 || this.user.password.trim().length === 0) {
                 this.message = 'Заполните форму до конца!';
-                e.preventDefault();
             } else {
                 this.message = '';
-                return true;
+                loginApi.save({}, this.user).then(
+                    result => {
+                        switch (result.status) {
+                            case 200:
+                                document.location.href = "http://localhost:11125/main";
+                                break;
+                        }
+                    },
+                    error => {
+                        switch (error.status) {
+                            case 400:
+                                this.message = 'Неправильное имя пользователя или пароль!';
+                                console.log(error);
+                                break;
+                            default:
+                                this.message = 'Что-то пошло не так...' + error.status;
+                                console.log(error);
+                                break;
+                        }
+                    }
+                )
+
             }
         },
         validateLength: function () {
-            if (this.username.length >= 20) {
-                this.username = this.username.substr(0,19);
+            if (this.user.username.length >= 20) {
+                this.user.username = this.user.username.substr(0,19);
             }
-            if (this.password.length >= 20) {
-                this.password = this.password.substr(0,19);
+            if (this.user.password.length >= 20) {
+                this.user.password = this.user.password.substr(0,19);
             }
         }
     },

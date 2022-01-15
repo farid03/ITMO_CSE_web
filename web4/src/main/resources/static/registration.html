@@ -22,15 +22,15 @@
     </b>
     <br> Добавление нового пользователя <br>
     <table>
-        <tr><td><b>Username:</b></td><td><input type="text" name="username" v-model="user.username"/></td></tr>
-        <tr><td><b>Password:</b></td><td><input type="password" name="password" v-model="user.password"/></td></tr>
+        <tr><td><b>Username:</b></td><td><input type="text" name="username" v-model="user.username" @input="validateLength"/></td></tr>
+        <tr><td><b>Password:</b></td><td><input type="password" name="password" v-model="user.password" @input="validateLength"/></td></tr>
         <tr>
             <td colspan="2">
                 <input id="move-to-main" type="submit" value="Register"/>
             </td>
         </tr>
     </table>
-    <a href="/login">Войти в систему</a>
+    <a href="/">Войти в систему</a>
     <div>
 
     </div>
