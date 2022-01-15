@@ -31,11 +31,19 @@ var signInForm = new Vue({
                 this.message = '';
                 return true;
             }
+        },
+        validateLength: function () {
+            if (this.username.length >= 20) {
+                this.username = this.username.substr(0,19);
+            }
+            if (this.password.length >= 20) {
+                this.password = this.password.substr(0,19);
+            }
         }
     },
     created: function () {
         console.log(window.location.search);
-        if (window.location.search == '?sucsess') {
+        if (window.location.search == '?success') {
             this.message = 'Регистрация прошла успешно!';
         } else if (window.location.search == '?error') {
             this.message = 'Неправильное имя пользователя или пароль!';
